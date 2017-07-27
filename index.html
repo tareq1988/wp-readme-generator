@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WordPress Readme Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v2.3.3/dist/mini-default.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+<body>
+    <div id="page" class="readme-generator expanded preview-desktop">
+
+        <div id="builder" class="builder-area">
+
+            <div class="builder-header">WP Readme Generator</div>
+
+            <div class="builder-fields">
+
+                <section class="panel">
+                    <h3>Banner and Icon</h3>
+
+                    <div class="panel-content">
+                        <label for="banner">Banner Image</label>
+                        <input type="url" id="banner" v-model="banner">
+
+                        <label for="icon">Icon Image</label>
+                        <input type="url" id="icon" v-model="icon">
+                    </div>
+                </section>
+
+                <section class="panel active">
+                    <h3>Headings</h3>
+
+                    <div class="panel-content" style="display: block;">
+                        <label for="plugin-name">Plugin Name</label>
+                        <input type="text" v-model="name">
+
+                        <label for="contributors">Contributors</label>
+                        <input type="text" id="contributors" v-model="contributors">
+
+                        <label for="donate">Donate Link</label>
+                        <input type="text" id="donate" v-model="donate">
+
+                        <label for="tags">Tags</label>
+                        <input type="text" id="tags" v-model="tags">
+
+                        <label for="stable">Stable Tag</label>
+                        <input type="text" id="stable" v-model="stable">
+
+                        <label for="license">License</label>
+                        <input type="text" id="license" v-model="license">
+
+                        <label for="licenseuri">License URI</label>
+                        <input type="text" id="licenseuri" v-model="licenseuri">
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <h3>Description</h3>
+
+                    <div class="panel-content">
+                        <label for="short">Short Description</label>
+                        <textarea name="short" id="short" cols="30" rows="10" :value="short"></textarea>
+
+                        <label for="description">Description</label>
+                        <textarea name="description" id="editor" cols="30" rows="10" :value="sections.description" @input="update( $event, 'description' )"></textarea>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <h3>FAQ</h3>
+
+                    <div class="panel-content">
+
+                        <div class="add-more-area faq-section">
+                            <div v-if="sections.faq.length">
+                                <ul>
+                                    <li v-for="(item, index) in sections.faq">
+                                        <label>Question</label>
+                                        <input type="text" v-model="item.question" placeholder="A question that someone might have">
+
+                                        <label>Answer</label>
+                                        <textarea v-model="item.answer" placeholder="An answer to that question"></textarea>
+
+                                        <a href="#" @click.prevent="removeItem(index, 'faq')">Remove</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <a href="#" class="button primary" v-on:click.prevent="addQuestion()">Add Question</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <h3>Screenshots</h3>
+
+                    <div class="panel-content">
+
+                        <div class="add-more-area secreenshot-section">
+
+                            <div v-if="sections.screenshots.length">
+                                <ul>
+                                    <li v-for="(item, index) in sections.screenshots">
+                                        <label>Image URL</label>
+                                        <input type="text" v-model="item.url" placeholder="(optional) Image URL to preview">
+
+                                        <label>Caption</label>
+                                        <input type="text" v-model="item.caption" placeholder="Caption to the image">
+
+                                        <a href="#" @click.prevent="removeItem(index, 'screenshots')">Remove</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <a href="#" class="button primary" v-on:click.prevent="addScreenshot()">Add Screenshot</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <h3>Others</h3>
+
+                    <div class="panel-content">
+
+                        <label for="installation">Installation Instruction</label>
+                        <textarea name="installation" id="installation" cols="30" rows="10" :value="sections.installation" @input="update( $event, 'installation' )"></textarea>
+
+                        <label for="installation">Upgrade Notice</label>
+                        <textarea name="upgrade" id="upgrade" cols="30" rows="10" :value="sections.upgrade" @input="update( $event, 'upgrade' )"></textarea>
+
+                    </div>
+                </section>
+            </div>
+
+            <div class="footer-actions">
+                <!-- <a href="#" class="close">&lt;</a> -->
+            </div>
+
+        </div>
+
+        <div id="preview-area">
+            <iframe src="wp.html" height="100%" width="100%" frameborder="0" name="previewframe" id="previewframe"></iframe>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/marked"></script>
+    <script src="https://unpkg.com/underscore"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
