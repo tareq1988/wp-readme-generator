@@ -36,7 +36,7 @@ var Storage = {
                 caption: 'Traffic: SEO Tools for Google, Twitter, Facebook and more.'
             },
         ],
-        faq: [
+        frequently_asked_questions: [
             {
                 question: 'A question that someone might have',
                 answer: 'An answer to that question.'
@@ -47,7 +47,7 @@ var Storage = {
             }
         ],
         changelog: '',
-        upgrade: ''
+        upgrade_notice: ''
     }
 };
 
@@ -60,7 +60,7 @@ const App = new Vue({
         }, 300),
 
         addQuestion: function() {
-            this.sections.faq.push( {
+            this.sections.frequently_asked_questions.push( {
                 question: '',
                 answer: ''
             });
@@ -75,6 +75,11 @@ const App = new Vue({
 
         removeItem: function(index, section) {
             this.sections[section].splice(index, 1);
+        },
+
+        showModal: function() {
+            $('#modal-window').addClass('showing');
+            $('#modal-backdrop').addClass('showing');
         }
     }
 });
@@ -100,7 +105,9 @@ const Preview = new Vue({
 
     methods: {
         compile: function(section) {
-            return marked( this.sections[section], { sanitize: false } );
+            var text = this.sections[section].replace(/^[\s]*=[\s]+(.+?)[\s]+=/gm, '#### $1' );
+
+            return marked( text, { sanitize: false } );
         },
 
         transform: function(index) {
@@ -157,4 +164,118 @@ panels.on('click', 'h3', function() {
     panels.removeClass('active').find('.panel-content').slideUp('fast');
 
     $(this).closest('.panel').addClass('active').find('.panel-content').slideDown('fast');
+});
+
+function hide_modal() {
+    $('#modal-window').removeClass('showing');
+    $('#modal-backdrop').removeClass('showing');
+}
+
+jQuery(function($) {
+
+    $('body').on('click', 'a#close-modal', function(event) {
+        event.preventDefault();
+
+        hide_modal();
+    });
+
+    $('body').on('click', 'a#btn-resize', function(event) {
+        event.preventDefault();
+
+        var page = $('#page');
+
+        if ( page.hasClass('mini') ) {
+            page.removeClass('mini').addClass('expanded');
+        } else if ( page.hasClass('expanded' ) ) {
+            page.removeClass('expanded').addClass('mini');
+        }
+    });
+
+    $('#submit').on('click', function(event) {
+        event.preventDefault();
+
+        var readme = $.trim( $('#readme').val() );
+
+        if ( '' === readme ) {
+            return;
+        }
+
+        var data = {};
+        var reg = {
+            name: /^===(.*)===/,
+            contributors: /Contributors:(.*)/,
+            donate: /Donate link:(.*)/,
+            tags: /Tags:(.*)/,
+            requires: /Requires at least:(.*)/,
+            tested: /Tested up to:(.*)/,
+            stable: /Stable tag:(.*)/,
+            license: /License:(.*)/,
+            licenseuri: /License URI:(.*)/,
+            short: /(.*)/,
+        };
+
+        _.each(reg, function(regex, key) {
+            var value = readme.match(regex);
+
+            if ( null !== value ) {
+                Storage[key] = $.trim( value[1] );
+                readme       = $.trim( readme.replace(regex, '') );
+            }
+        });
+
+        var sections = {
+            'description': '',
+            'installation': '',
+            'frequently_asked_questions': [],
+            'screenshots': [],
+            'changelog': '',
+            'upgrade_notice': ''
+        };
+
+        var sectionsRegexp = /^[\s]*==[\s]*(.+?)[\s]*==/gm;
+        var sectionHeaders = readme.split(sectionsRegexp);
+
+        for (var i = 1; i <= sectionHeaders.length; i += 2 ) {
+
+            if ( sectionHeaders[i] !== undefined ) {
+                var key = sectionHeaders[i].toLowerCase().split( ' ' ).join( '_' );
+
+                if ( Storage.sections[ key ] !== undefined ) {
+                    var section_content = $.trim( sectionHeaders[ i+1 ] );
+
+                    if ( 'frequently_asked_questions' === key ) {
+                        var _faq_sections = section_content.split(/^[\s]*=[\s]+(.+?)[\s]+=/m);
+
+                        Storage.sections[key] = [];
+
+                        for (var i = 1; i <= _faq_sections.length; i += 2 ) {
+                            Storage.sections[key].push( {
+                                question: $.trim(_faq_sections[i]),
+                                answer: $.trim(_faq_sections[i+1])
+                            });
+                        }
+
+                    } else if ( 'screenshots' === key ) {
+
+                        Storage.sections[key] = [];
+
+                        var _screenshots = section_content.split("\n");
+
+                        _.each(_screenshots, function(el, index) {
+                            Storage.sections[key].push({
+                                url: 'http://via.placeholder.com/640x480',
+                                caption: $.trim( el.substr( el.indexOf('.') + 1 ) )
+                            });
+                        });
+
+                    } else {
+                        Storage.sections[ key ] = section_content;
+                    }
+
+                }
+            }
+        }
+
+        hide_modal();
+    });
 });

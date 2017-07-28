@@ -99,7 +99,7 @@
                                                 <a :href="item.url" rel="nofollow">
                                                     <img class="screenshot" :src="item.url" alt="" />
                                                 </a>
-                                                <figcaption>{{ item.caption }}</figcaption>
+                                                <figcaption class="image-gallery-description">{{ item.caption }}</figcaption>
                                             </figure>
                                         </div>
                                     </div>
@@ -123,10 +123,10 @@
                             <span v-html="compiledInstallation"></span>
                         </div>
 
-                        <div id="faq" class="plugin-faq section" v-show="sections.faq.length">
+                        <div id="faq" class="plugin-faq section" v-show="sections.frequently_asked_questions.length">
                             <h2 id="faq-header">FAQ</h2>
 
-                            <dl v-for="item in sections.faq">
+                            <dl v-for="item in sections.frequently_asked_questions">
                                 <template>
                                     <dt @click="toggleFaq"><button type="button" class="button-link" aria-expanded="false">{{ item.question }}</button></dt>
                                     <dd>{{ item.answer }}</dt>
@@ -162,7 +162,13 @@
                                 <li>Active installs: <strong>3+ million</strong></li>
                                 <li>Requires WordPress Version:<strong>{{ requires }}</strong></li>
                                 <li>Tested up to: <strong>{{ tested }}</strong></li>
-                                <li class="clear">Tags: <div class="tags"><a href="https://wordpress.org/plugins/tags/backup/" rel="tag">backup</a><a href="https://wordpress.org/plugins/tags/jetpack/" rel="tag">jetpack</a><a href="https://wordpress.org/plugins/tags/related-posts/" rel="tag">related posts</a><a href="https://wordpress.org/plugins/tags/security/" rel="tag">security</a><a href="https://wordpress.org/plugins/tags/wordpress-com/" rel="tag">WordPress.com</a></div></li>
+                                <li class="clear">Tags:
+                                    <div class="tags">
+                                        <a href="https://wordpress.org/plugins/tags/backup/" rel="tag">backup</a>
+                                        <a href="https://wordpress.org/plugins/tags/jetpack/" rel="tag">jetpack</a>
+                                        <a href="https://wordpress.org/plugins/tags/related-posts/" rel="tag">related posts</a>
+                                        <a href="https://wordpress.org/plugins/tags/security/" rel="tag">security</a>
+                                        <a href="https://wordpress.org/plugins/tags/wordpress-com/" rel="tag">WordPress.com</a></div></li>
                                 <li class="hide-if-no-js">
                                     <strong><a class="plugin-admin" href="https://wordpress.org/plugins/dokan-lite/advanced/">Advanced View</a></strong>
                                 </li>

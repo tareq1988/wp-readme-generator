@@ -4,17 +4,21 @@
     <title>WordPress Readme Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
     <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v2.3.3/dist/mini-default.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=1">
 
 </head>
 <body>
-    <div id="page" class="readme-generator expanded preview-desktop">
+    <div id="page" class="readme-generator mini preview-desktop">
 
         <div id="builder" class="builder-area">
 
-            <div class="builder-header">WP Readme Generator</div>
+            <div class="builder-header">
+                WP Readme Generator
+
+                <span class="github"><a href="https://github.com/tareq1988/wp-readme-generator" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></span>
+            </div>
 
             <div class="builder-fields">
 
@@ -62,7 +66,7 @@
 
                     <div class="panel-content">
                         <label for="short">Short Description</label>
-                        <textarea name="short" id="short" cols="30" rows="10" :value="short"></textarea>
+                        <textarea name="short" id="short" cols="30" rows="3" :value="short"></textarea>
 
                         <label for="description">Description</label>
                         <textarea name="description" id="editor" cols="30" rows="10" :value="sections.description" @input="update( $event, 'description' )"></textarea>
@@ -75,16 +79,16 @@
                     <div class="panel-content">
 
                         <div class="add-more-area faq-section">
-                            <div v-if="sections.faq.length">
+                            <div v-if="sections.frequently_asked_questions.length">
                                 <ul>
-                                    <li v-for="(item, index) in sections.faq">
+                                    <li v-for="(item, index) in sections.frequently_asked_questions">
                                         <label>Question</label>
                                         <input type="text" v-model="item.question" placeholder="A question that someone might have">
 
                                         <label>Answer</label>
                                         <textarea v-model="item.answer" placeholder="An answer to that question"></textarea>
 
-                                        <a href="#" @click.prevent="removeItem(index, 'faq')">Remove</a>
+                                        <a href="#" @click.prevent="removeItem(index, 'frequently_asked_questions')">Remove</a>
                                     </li>
                                 </ul>
                             </div>
@@ -129,14 +133,19 @@
                         <textarea name="installation" id="installation" cols="30" rows="10" :value="sections.installation" @input="update( $event, 'installation' )"></textarea>
 
                         <label for="installation">Upgrade Notice</label>
-                        <textarea name="upgrade" id="upgrade" cols="30" rows="10" :value="sections.upgrade" @input="update( $event, 'upgrade' )"></textarea>
+                        <textarea name="upgrade" id="upgrade" cols="30" rows="10" :value="sections.upgrade_notice" @input="update( $event, 'upgrade_notice' )"></textarea>
 
                     </div>
                 </section>
             </div>
 
             <div class="footer-actions">
-                <!-- <a href="#" class="close">&lt;</a> -->
+                <a href="#" class="button import-button" @click.prevent="showModal()">Import</a>
+
+                <span class="window-width">
+                    <a href="#" class="button export"><i class="fa fa-code" aria-hidden="true"></i></a>
+                    <a href="#" class="button resize" id="btn-resize"><i class="fa fa-arrows-h" aria-hidden="true"></i></a>
+                </span>
             </div>
 
         </div>
@@ -146,11 +155,26 @@
         </div>
     </div>
 
+    <div class="modal-window" id="modal-window">
+        <a href="#" class="close" id="close-modal"></a>
+
+        <div class="modal-header">
+            <h2>Import/export Your Readme</h2>
+        </div>
+        <div class="modal-content">
+            <textarea name="readme" id="readme" cols="30" rows="20" style="width: 100%;"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button id="submit" class="button primary" style="float: right;">Import Readme</button>
+        </div>
+    </div>
+    <div id="modal-backdrop" class="modal-backdrop"></div>
 
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/jquery"></script>
     <script src="https://unpkg.com/marked"></script>
     <script src="https://unpkg.com/underscore"></script>
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script.js?v=13"></script>
+
 </body>
 </html>
