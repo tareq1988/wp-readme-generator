@@ -16,11 +16,11 @@ var Storage = {
         installation: 'This section describes how to install the plugin and get it working.\r\n\r\ne.g.\r\n\r\n1. Upload the plugin files to the `\/wp-content\/plugins\/plugin-name` directory, or install the plugin through the WordPress plugins screen directly.\r\n1. Activate the plugin through the \'Plugins\' screen in WordPress\r\n1. Use the Settings->Plugin Name screen to configure the plugin\r\n1. (Make your instructions match the desired user flow for activating and installing your plugin. Include any steps that might be needed for explanatory purposes)',
         screenshots: [
             {
-                url: 'http://via.placeholder.com/640x480&text=Screenshot+1',
+                url: 'https://via.placeholder.com/640x480&text=Screenshot+1',
                 caption: 'This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif).'
             },
             {
-                url: 'http://via.placeholder.com/640x480&text=Screenshot+2',
+                url: 'https://via.placeholder.com/640x480&text=Screenshot+2',
                 caption: 'This is the second screen shot'
             }
         ],
@@ -324,7 +324,7 @@ jQuery(function($) {
 
                         _.each(_screenshots, function(el, index) {
                             Storage.sections[key].push({
-                                url: 'http://via.placeholder.com/640x480&text=Screenshot+' + (index+1),
+                                url: 'https://via.placeholder.com/640x480&text=Screenshot+' + (index+1),
                                 caption: $.trim( el.substr( el.indexOf('.') + 1 ) )
                             });
                         });
