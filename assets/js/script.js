@@ -16,25 +16,13 @@ var Storage = {
         installation: 'This section describes how to install the plugin and get it working.\r\n\r\ne.g.\r\n\r\n1. Upload the plugin files to the `\/wp-content\/plugins\/plugin-name` directory, or install the plugin through the WordPress plugins screen directly.\r\n1. Activate the plugin through the \'Plugins\' screen in WordPress\r\n1. Use the Settings->Plugin Name screen to configure the plugin\r\n1. (Make your instructions match the desired user flow for activating and installing your plugin. Include any steps that might be needed for explanatory purposes)',
         screenshots: [
             {
-                url: 'https://ps.w.org/jetpack/assets/screenshot-1.png?rev=1594422',
-                caption: 'Dashboard: Bird’s eye view of your site stats, status, and health.'
+                url: 'http://via.placeholder.com/640x480&text=Screenshot+1',
+                caption: 'This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif).'
             },
             {
-                url: 'https://ps.w.org/jetpack/assets/screenshot-2.png?rev=1594422',
-                caption: 'Safety: Protect your site and data with powerful security services.'
-            },
-            {
-                url: 'https://ps.w.org/jetpack/assets/screenshot-3.png?rev=1594422',
-                caption: 'Engagement: Social sharing, likes, and related posts.'
-            },
-            {
-                url: 'https://ps.w.org/jetpack/assets/screenshot-4.png?rev=1594422',
-                caption: 'Analytics: Actionable site stats and traffic insights.'
-            },
-            {
-                url: 'https://ps.w.org/jetpack/assets/screenshot-5.png?rev=1594422',
-                caption: 'Traffic: SEO Tools for Google, Twitter, Facebook and more.'
-            },
+                url: 'http://via.placeholder.com/640x480&text=Screenshot+2',
+                caption: 'This is the second screen shot'
+            }
         ],
         frequently_asked_questions: [
             {
