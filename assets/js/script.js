@@ -54,6 +54,52 @@ var Storage = {
 const App = new Vue({
     el: '#builder',
     data: Storage,
+
+    computed: {
+        preparedScreenshots: function() {
+            var string = '';
+
+            _.each( this.sections.screenshots, function(el, index) {
+                string += ( index + 1 ) + '. ' + el.caption + '\n';
+            });
+
+            return string;
+        },
+
+        preparedFaq: function() {
+            var string = '';
+
+            _.each( this.sections.frequently_asked_questions, function(el, index) {
+                string += '= ' + el.question + ' =\n\n';
+                string += '' + el.answer + '\n\n';
+            });
+
+            return string;
+        },
+
+        generated: function() {
+
+            var readme = '=== ' + this.name + ' ===\n' +
+                'Contributors: ' + this.contributors + '\n' +
+                'Donate link: ' + this.donate + '\n' +
+                'Tags: ' + this.tags + '\n' +
+                'Requires at least: ' + this.requires + '\n' +
+                'Tested up to: ' + this.tested + '\n' +
+                'Stable tag: ' + this.stable + '\n' +
+                'License: ' + this.license + '\n' +
+                'License URI: ' + this.licenseuri + '\n\n' +
+                this.short + '\n\n' +
+                '== Description ==\n\n' + this.sections.description + '\n\n' +
+                '== Installation ==\n\n' + this.sections.installation + '\n\n' +
+                '== Frequently Asked Questions ==\n\n' + this.preparedFaq + '\n' +
+                '== Screenshots ==\n\n' + this.preparedScreenshots + '\n' +
+                '== Changelog ==\n\n' + this.sections.changelog + '\n' +
+                '== Upgrade Notice ==\n\n' + this.sections.upgrade_notice;
+
+            return readme;
+        }
+    },
+
     methods: {
         update: _.debounce(function (e, section) {
             this.sections[section] = e.target.value;
@@ -80,7 +126,17 @@ const App = new Vue({
         showModal: function() {
             $('#modal-window').addClass('showing');
             $('#modal-backdrop').addClass('showing');
-        }
+        },
+
+        showExportModal: function() {
+            $('#export-modal-window').addClass('showing');
+            $('#export-modal-backdrop').addClass('showing');
+        },
+
+        closeModal: function() {
+            $('#export-modal-window').removeClass('showing');
+            $('#export-modal-backdrop').removeClass('showing');
+        },
     }
 });
 
@@ -99,6 +155,10 @@ const Preview = new Vue({
 
         contribs: function() {
             return this.contributors.split( ',' );
+        },
+
+        tagsArray: function() {
+            return this.tags.split( ',' );
         }
 
     },
@@ -111,6 +171,10 @@ const Preview = new Vue({
         },
 
         transform: function(index) {
+            if ( index === 0 ) {
+                return 0;
+            }
+
             if ( index === this.sections.screenshots.length - 1 ) {
                 return -100;
             } else {
@@ -153,10 +217,13 @@ const Preview = new Vue({
     }
 });
 
-window.frames['previewframe'].window.onload = function () {
-    // console.log('Iframe Window OnLoad');
-    Preview.$mount(window.frames['previewframe'].window.document.getElementById('main'));
-}
+var interval = setInterval(function() {
+    if ( 'complete' === window.frames['previewframe'].document.readyState ) {
+        Preview.$mount(window.frames['previewframe'].window.document.getElementById('main'));
+        clearInterval(interval);
+    }
+}, 300);
+
 
 var panels = $('.panel');
 
@@ -235,6 +302,10 @@ jQuery(function($) {
         var sectionsRegexp = /^[\s]*==[\s]*(.+?)[\s]*==/gm;
         var sectionHeaders = readme.split(sectionsRegexp);
 
+        if ( sectionHeaders.length < 2 ) {
+            return;
+        }
+
         for (var i = 1; i <= sectionHeaders.length; i += 2 ) {
 
             if ( sectionHeaders[i] !== undefined ) {
@@ -246,13 +317,15 @@ jQuery(function($) {
                     if ( 'frequently_asked_questions' === key ) {
                         var _faq_sections = section_content.split(/^[\s]*=[\s]+(.+?)[\s]+=/m);
 
-                        Storage.sections[key] = [];
+                        if ( _faq_sections.length > 1 ) {
+                            Storage.sections[key] = [];
 
-                        for (var i = 1; i <= _faq_sections.length; i += 2 ) {
-                            Storage.sections[key].push( {
-                                question: $.trim(_faq_sections[i]),
-                                answer: $.trim(_faq_sections[i+1])
-                            });
+                            for (var i = 1; i <= _faq_sections.length; i += 2 ) {
+                                Storage.sections[key].push( {
+                                    question: $.trim(_faq_sections[i]),
+                                    answer: $.trim(_faq_sections[i+1])
+                                });
+                            }
                         }
 
                     } else if ( 'screenshots' === key ) {
@@ -263,7 +336,7 @@ jQuery(function($) {
 
                         _.each(_screenshots, function(el, index) {
                             Storage.sections[key].push({
-                                url: 'http://via.placeholder.com/640x480',
+                                url: 'http://via.placeholder.com/640x480&text=Screenshot+' + (index+1),
                                 caption: $.trim( el.substr( el.indexOf('.') + 1 ) )
                             });
                         });

@@ -66,7 +66,7 @@
 
                     <div class="panel-content">
                         <label for="short">Short Description</label>
-                        <textarea name="short" id="short" cols="30" rows="3" :value="short"></textarea>
+                        <textarea name="short" id="short" cols="30" rows="3" v-model="short"></textarea>
 
                         <label for="description">Description</label>
                         <textarea name="description" id="editor" cols="30" rows="10" :value="sections.description" @input="update( $event, 'description' )"></textarea>
@@ -140,13 +140,25 @@
             </div>
 
             <div class="footer-actions">
-                <a href="#" class="button import-button" @click.prevent="showModal()">Import</a>
+                <a href="#" title="Import your existing readme" class="button import-button" @click.prevent="showModal()">Import</a>
 
                 <span class="window-width">
-                    <a href="#" class="button export"><i class="fa fa-code" aria-hidden="true"></i></a>
-                    <a href="#" class="button resize" id="btn-resize"><i class="fa fa-arrows-h" aria-hidden="true"></i></a>
+                    <a href="#" title="Export your readme" class="button export" @click.prevent="showExportModal()"><i class="fa fa-code" aria-hidden="true"></i></a>
+                    <a href="#" title="Resize the Editor window" class="button resize" id="btn-resize"><i class="fa fa-arrows-h" aria-hidden="true"></i></a>
                 </span>
             </div>
+
+            <div class="modal-window" id="export-modal-window">
+                <a href="#" class="close" id="close-modal" @click.prevent="closeModal()"></a>
+
+                <div class="modal-header">
+                    <h2>Export Your Readme</h2>
+                </div>
+                <div class="modal-content">
+                    <textarea cols="30" :value="generated" rows="30" style="width: 100%;font-family: monospace;"></textarea>
+                </div>
+            </div>
+            <div id="export-modal-backdrop" class="modal-backdrop"></div>
 
         </div>
 
@@ -159,7 +171,7 @@
         <a href="#" class="close" id="close-modal"></a>
 
         <div class="modal-header">
-            <h2>Import/export Your Readme</h2>
+            <h2>Import Your Readme</h2>
         </div>
         <div class="modal-content">
             <textarea name="readme" id="readme" cols="30" rows="20" style="width: 100%;"></textarea>
@@ -174,7 +186,11 @@
     <script src="https://unpkg.com/jquery"></script>
     <script src="https://unpkg.com/marked"></script>
     <script src="https://unpkg.com/underscore"></script>
-    <script src="assets/js/script.js?v=13"></script>
+    <script src="assets/js/script.js?v=14"></script>
+
+    <script type="text/javascript">
+
+    </script>
 
 </body>
 </html>

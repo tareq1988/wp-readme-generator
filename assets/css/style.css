@@ -198,6 +198,13 @@ section.panel {
     top: 0;
     bottom: 0;
     height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+textarea.output-area {
+    width: 100%;
+    font-family: monospace;
 }
 
 .modal-window {
