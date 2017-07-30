@@ -300,3 +300,32 @@ textarea.output-area {
 .modal-backdrop.showing {
     display: block;
 }
+
+@media only screen and (max-device-width: 768px) {
+    .builder-area {
+        width: 100%;
+    }
+
+    .mini .footer-actions {
+        width: 100%;
+    }
+
+    .footer-actions .button.resize {
+        display: none;
+    }
+
+    .footer-actions .button.export {
+        margin-right: 8px;
+    }
+
+    #preview-area {
+        display: none;
+    }
+
+    .modal-window {
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+}
