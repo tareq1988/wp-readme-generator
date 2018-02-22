@@ -8,6 +8,7 @@ var Storage = {
     requires: '4.0',
     tested: '4.8',
     stable: 'trunk',
+    php: '5.4',
     license: 'GPLv2 or later',
     licenseuri: 'https://www.gnu.org/licenses/gpl-2.0.html',
     short: 'Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.',
@@ -74,6 +75,7 @@ const App = new Vue({
                 'Requires at least: ' + this.requires + '\n' +
                 'Tested up to: ' + this.tested + '\n' +
                 'Stable tag: ' + this.stable + '\n' +
+                'Requires PHP: ' + this.php + '\n' +
                 'License: ' + this.license + '\n' +
                 'License URI: ' + this.licenseuri + '\n\n' +
                 this.short + '\n\n' +
@@ -264,6 +266,7 @@ jQuery(function($) {
             requires: /Requires at least:(.*)/,
             tested: /Tested up to:(.*)/,
             stable: /Stable tag:(.*)/,
+            php: /Requires PHP:(.*)/,
             license: /License:(.*)/,
             licenseuri: /License URI:(.*)/,
             short: /(.*)/,
