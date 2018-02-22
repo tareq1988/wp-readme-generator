@@ -2,12 +2,11 @@
 <html>
 <head>
     <title>Welcome to WordPress</title>
-    <link href="https://s.w.org/wp-includes/css/dashicons.css?20160504" rel="stylesheet" type="text/css" />
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,400,300,600&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://s.w.org/style/wp4.css?59" />
-    <link media="only screen and (max-device-width: 480px)" href="https://s.w.org/style/iphone.css?1" type="text/css" rel="stylesheet" />
-    <link rel='stylesheet' id='dashicons-css'  href='https://wordpress.org/plugins/wp-includes/css/dashicons.min.css?ver=4.9-alpha-41123' type='text/css' media='all' />
-    <link rel='stylesheet' id='wporg-plugins-style-css'  href='https://wordpress.org/plugins/wp-content/themes/pub/wporg-plugins/css/style.css?ver=20170719' type='text/css' media='all' />
+    <link rel='stylesheet' id='dashicons-css' href='https://s.w.org/wp-includes/css/dashicons.min.css?ver=5.0-alpha-42722' type='text/css' media='all'/>
+    <link rel='stylesheet' id='admin-bar-css' href='https://wordpress.org/plugins/wp-includes/css/admin-bar.min.css?ver=5.0-alpha-42722' type='text/css' media='all'/>
+    <link rel='stylesheet' id='open-sans-css' href='https://fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&#038;subset=latin%2Clatin-ext' type='text/css' media='all'/>
+    <link rel='stylesheet' id='wporg-plugins-style-css' href='https://s.w.org/wp-content/themes/pub/wporg-plugins/css/style.css?ver=20180206' type='text/css' media='all'/>
+    <link rel='stylesheet' id='jetpack-inline-terms-css-css' href='https://wordpress.org/plugins/wp-content/mu-plugins/inline-terms/ui/style.css?ver=5.0-alpha-42722' type='text/css' media='all'/>
 </head>
 <body id="wordpress-org" class="plugin-template-default single single-plugin postid-85 logged-in admin-bar no-customize-support js">
     <div id="page" class="site">
@@ -77,7 +76,7 @@
                         <div id="tab-description" class="plugin-description section">
                             <h2 id="description-header">Description</h2>
 
-                            <span v-html="compiledDescription"></span>
+                            <div v-html="compiledDescription"></div>
                         </div>
 
                         <div id="screenshots" class="plugin-screenshots" v-show="sections.screenshots.length">
