@@ -6,7 +6,7 @@ var Storage = {
   donate: 'https://tareq.co/donate/',
   tags: 'comments, spam, cache',
   requires: '4.0',
-  tested: '4.8',
+  tested: '5.5.3',
   stable: 'trunk',
   php: '5.4',
   license: 'GPLv2 or later',
