@@ -157,7 +157,7 @@ const Preview = new Vue({
     compile: function(section) {
       var text = this.sections[section].replace(/^[\s]*=[\s]+(.+?)[\s]+=/gm, '#### $1' );
 
-      return marked( text, { sanitize: false } );
+      return marked.parse( text, { sanitize: false } );
     },
 
     transform: function(index) {
